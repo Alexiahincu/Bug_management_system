@@ -1,0 +1,3 @@
+Iteratia 1: functionalitati pentru verificator
+Iteratia 2: functionalitati pentru programator
+Iteratia 3: administrare de conturi si retea
