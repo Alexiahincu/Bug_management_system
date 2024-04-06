@@ -1,0 +1,32 @@
+Nume: Eliminare de bug-uri
+
+Actori primari: Programatorii
+
+Actori secundari: Verificatorii
+
+Descriere:
+O firma producatoare de software pune la dispozitia programatorilor si verificatorilor sai un sistem prin care acestia pot sa comunice electronic. Dupa ce verificatorii semnaleaza si inregistreaza bug-uri in sistem, rolul programatorilor este de a le repara si de a le sterge din sistem, marcandu-le drept rezolvate.
+
+Trigger: verificatorul inregistreaza un bug in sistem
+
+Preconditii:
+1. Fiecare programator trebuie sa se logheze in sistem cu ID si parola proprii valide pentru a-si putea indeplini sarcinile
+2. Programatorul trebuie sa repare un bug inainte de a-l elimina din sistem
+
+Postconditii:
+1. Lista bug-urilor va fi actualizata dupa eliminarea de bug-uri
+
+Normal flow:
+1. Programatorul introduce ID-ul si parola proprii si declaseaza un buton de logare, logandu-se astfel in sistem
+2. Acesta vizualizeaza lista bug-urilor pusa la dispzitie de sistem
+3. Dupa rezolvarea unor bug-uri dintr-un software, acesta le selecteaza din lista si declanseaza un buton prin care declara ca bug-urile respective au fost eliminate
+4. Bug-urile sunt scoase din lista tuturor programatorilor.
+
+Exceptii:
+1.E. Programatorul isi introduce ID-ul sau parola incorect si declanseaza butonul de logare
+1. Acesta este anuntat de catre sistem ca nu si-a introdus datele contului corect
+2. Se revine la pasul 1 din normal flow
+3.E. Programatorul nu selecteaza niciun bug din lista si declanseaza butonul de eliminare
+1. Acesta este anuntat de catre sistem ca trebuie sa selecteze cel putin un bug pentru eliminare
+2. Se revine la pasul 3 din normal flow
+

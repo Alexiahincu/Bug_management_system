@@ -1,0 +1,41 @@
+
+
+Nume: Inregistrare de bug-uri
+
+Actori primari: Verificatorii
+
+Actori secundari: Programatorii
+
+Descriere:
+O firma producatoare de software pune la dispozitia programatorilor si verificatorilor sai un sistem prin care acestia pot sa comunice electronic. Rolul verificatorilor este semnalarea si inregistrarea bug-urilor in sistem, dându-i fiecaruia o denumire si o descriere. Lista bug-urilor introduse de verificatori in sistem este vizibila pentru programatori, cei care le vor rezolva.
+
+Trigger: verificatorul semnaleaza un bug intr-un software
+
+Preconditii:
+1. Fiecare verificator trebuie sa se logheze in sistem cu ID si parola proprii valide pentru a-si putea indeplini sarcinile
+2. Verificatorul trebuie sa gaseasca un bug existent intr-un software pentru a-l adauga in sistem
+
+Postconditii:
+1. Lista bug-urilor va fi actualizata dupa adaugarea unui bug
+
+Normal flow:
+1. Dupa identificarea unui bug intr-un software, verificatorul introduce ID-ul si parola proprii si declaseaza un buton de confirmare, logandu-se astfel in sistem
+2. Acesta inregistreaza bug-ul respectiv: ii da o denumire si o descriere si declanseaza un buton cu rol de adugare
+3. Imediat dupa înregistrarea bug-ului, automat va fi disponibila pentru programatori lista bug-urilor actualizata cu obiectul nou introdus.
+
+Alternative flow: Verificatorul doreste sa mai adauge bug-uri
+1. Acesta declanseaza un buton pentru a reveni la meniul de adaugare
+2. Se revine la pasul 2 din normal flow
+
+Exceptii:
+1.E. Verificatorul isi introduce ID-ul sau parola incorect si declanseaza butonul de logare
+1. Acesta este anuntat de catre sistem ca nu si-a introdus datele contului corect
+2. Se revine la pasul 1 din normal flow
+2.E. Verificatorul nu introduce denumire si/sau descriere pentru un nou bug si declanseaza butonul de adaugare
+1. Acesta este anuntat de catre sistem ca introducerea denumirii si descrierii este obligatorie
+2. Se revine la pasul 2 din normal flow
+
+
+
+
+
