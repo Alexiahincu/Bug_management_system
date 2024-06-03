@@ -20,8 +20,8 @@ public class Service implements IService {
     ProgrammerRepository programmerRepository;
     BugRepository bugRepository;
 
-    //private Map<String, IObserver> loggedClients = new HashMap<>();
-    //ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private Map<String, IObserver> loggedClients = new HashMap<>();
+    ExecutorService executorService = Executors.newFixedThreadPool(5);
 
 
     public Service(TesterRepository testerRepository, ProgrammerRepository programmerRepository, BugRepository bugDBRepository) {
@@ -33,7 +33,7 @@ public class Service implements IService {
     public Tester tLogin(String username, String password, IObserver iobs){
         Tester tester = testerRepository.getByCredentials(username, password);
         if(tester != null) {
-            //loggedClients.put(angajat.getUsername(), iobs);
+            loggedClients.put(tester.getUsername(), iobs);
             return tester;
         }
         return null;
@@ -42,7 +42,7 @@ public class Service implements IService {
     public Programmer pLogin(String username, String password, IObserver iobs){
         Programmer programmer = programmerRepository.getByCredentials(username, password);
         if(programmer != null) {
-            //loggedClients.put(angajat.getUsername(), iobs);
+            loggedClients.put(programmer.getUsername(), iobs);
             return programmer;
         }
         return null;
@@ -54,15 +54,15 @@ public class Service implements IService {
 
     @Override
     public void SolveBug(Integer id){
-        Bug oldb = BugDBRepository.find(id);
+        Bug oldb = BugHibernateRepository.find(id);
         Bug newb = new Bug(id, oldb.getName(), oldb.getDescription(), BugStatus.SOLVED);
         bugRepository.update(id, newb);
 
-        //        executorService.submit(() -> {
-//            for (IObserver client : loggedClients.values()) {
-//                client.update();
-//            }
-//        });
+        executorService.submit(() -> {
+            for (IObserver client : loggedClients.values()) {
+                client.update();
+            }
+        });
 
     }
 
@@ -74,11 +74,11 @@ public class Service implements IService {
         Bug bug = new Bug(id, name, desc, BugStatus.PENDING);
         bugRepository.add(bug);
 
-//        executorService.submit(() -> {
-//            for (IObserver client : loggedClients.values()) {
-//                client.update();
-//            }
-//        });
+        executorService.submit(() -> {
+            for (IObserver client : loggedClients.values()) {
+                client.update();
+            }
+        });
 
     }
 

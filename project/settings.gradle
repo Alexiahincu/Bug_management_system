@@ -1,4 +1,6 @@
 rootProject.name = "project"
 include 'Persistence'
 include 'Client'
+include 'Server'
+include 'Networking'
 

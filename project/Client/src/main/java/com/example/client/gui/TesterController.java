@@ -1,6 +1,7 @@
 package com.example.client.gui;
 
 import com.example.client.Main;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -116,12 +117,12 @@ public class TesterController implements IObserver {
 
     @Override
     public void update() {
-//        Platform.runLater(() -> {
-//            try {
-//                loadData();
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
+        Platform.runLater(() -> {
+            try {
+                loadData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

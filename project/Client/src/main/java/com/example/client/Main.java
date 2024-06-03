@@ -12,29 +12,44 @@ import org.example.Domain.Programmer;
 import org.example.Repository.*;
 import org.example.Service.IService;
 import org.example.Service.Service;
+import org.example.jsonprotocol.ChatServicesJsonProxy;
 
 import java.io.IOException;
 import java.util.Properties;
 
 public class Main extends Application {
+    private static int defaultPort = 55555;
+    private static String defaultServer = "localhost";
 
     public void start(Stage primaryStage) throws Exception {
 
-        Properties serverProps=new Properties();
-
+        System.out.println("In start");
+        Properties clientProps = new Properties();
         try {
-            serverProps.load(Main.class.getResourceAsStream("/chatserver.properties"));
-            System.out.println("Server properties set. ");
-            serverProps.list(System.out);
+            clientProps.load(Main.class.getResourceAsStream("/client.properties"));
+            System.out.println("Client properties set. ");
+            clientProps.list(System.out);
         } catch (IOException e) {
-            System.err.println("Cannot find chatserver.properties "+e);
+            System.err.println("Cannot find client.properties " + e);
             return;
         }
+        String serverIP = clientProps.getProperty("server.host", defaultServer);
+        int serverPort = defaultPort;
 
-        BugRepository bugRepository = new BugDBRepository(serverProps);
-        TesterRepository testerRepository = new TesterDBRepository(serverProps);
-        ProgrammerRepository programmerRepository = new ProgrammerDBRepository(serverProps);
-        IService service = new Service(testerRepository, programmerRepository, bugRepository);
+        try {
+            serverPort = Integer.parseInt(clientProps.getProperty("server.port"));
+        } catch (NumberFormatException ex) {
+            System.err.println("Wrong port number " + ex.getMessage());
+            System.out.println("Using default port: " + defaultPort);
+        }
+        System.out.println("Using server IP " + serverIP);
+        System.out.println("Using server port " + serverPort);
+
+        ChatServicesJsonProxy server = new ChatServicesJsonProxy(serverIP, serverPort);
+
+
+
+        // hello view
 
 
         FXMLLoader loader = new FXMLLoader(
@@ -44,10 +59,9 @@ public class Main extends Application {
 
         LoginController ctrl =
                 loader.getController();
-        ctrl.setService(service);
+        ctrl.setService(server);
 
-
-
+            // tester
 
         FXMLLoader tloader = new FXMLLoader(
                 getClass().getClassLoader().getResource("tester.fxml"));
@@ -56,13 +70,13 @@ public class Main extends Application {
 
         TesterController tcontroller =
                 tloader.<TesterController>getController();
-        tcontroller.setServices(service);
+        tcontroller.setServices(server);
         //controller.loadData();
 
         ctrl.setTesterController(tcontroller);
         ctrl.setTParent(troot);
 
-
+            // programmer
 
         FXMLLoader ploader = new FXMLLoader(
                 getClass().getClassLoader().getResource("programmer.fxml"));
@@ -71,19 +85,18 @@ public class Main extends Application {
 
         ProgrammerController pcontroller =
                 ploader.<ProgrammerController>getController();
-        pcontroller.setServices(service);
+        pcontroller.setServices(server);
         //controller.loadData();
 
 
         ctrl.setProgrammerController(pcontroller);
         ctrl.setPParent(proot);
 
-
+            // show primary stage
 
         primaryStage.setTitle("Bug management system");
         primaryStage.setScene(new Scene(root, 300, 130));
         primaryStage.show();
-
 
     }
 }
