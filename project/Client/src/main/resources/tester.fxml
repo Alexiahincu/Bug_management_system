@@ -24,9 +24,10 @@
         <Label text="Description: " />
         <TextField fx:id="txtDesc" prefWidth="200" prefHeight="10" />
         <Button fx:id="btnAdd" onAction="#btnAddBugPressed" text="Add bug" />
-        <Button fx:id="btnLogOut" onAction="#btnLogOutPressed" text="Log out" />
     </HBox>
 
+    <Button fx:id="btnLink" onAction="#getInvLink" text="Get invitation link!" />
+    <Button fx:id="btnLogOut" onAction="#btnLogOutPressed" text="Log out" />
 
 </VBox>
 

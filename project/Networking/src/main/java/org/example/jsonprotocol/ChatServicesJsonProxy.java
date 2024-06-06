@@ -85,7 +85,7 @@ public class ChatServicesJsonProxy implements IService {
             throw new Exception(err);
         }
 
-        this.client = client;
+//        this.client = client;
         return response.getBugs();
 
     }
@@ -95,9 +95,7 @@ public class ChatServicesJsonProxy implements IService {
         Request req= JsonProtocolUtils.createAddBugRequest(name, description);
         sendRequest(req);
         Response response=readResponse();
-        if (response.getType()== ResponseType.OK){
-//            this.client=client;
-        }
+
         if (response.getType()== ResponseType.ERROR){
             String err=response.getErrorMessage();
             closeConnection();
@@ -110,30 +108,43 @@ public class ChatServicesJsonProxy implements IService {
         Request req= JsonProtocolUtils.createSolveBugRequest(id);
         sendRequest(req);
         Response response=readResponse();
-        if (response.getType()== ResponseType.OK){
-//            this.client=client;
-        }
+
         if (response.getType()== ResponseType.ERROR){
             String err=response.getErrorMessage();
             closeConnection();
             throw new Exception(err);
         }
     }
-    
 
-//    public void logout(Angajat Angajat, IObserver client) throws Exception {
-//
-//        Request req = JsonProtocolUtils.createLogoutRequest(Angajat);
-//        sendRequest(req);
-//       Response response = readResponse();
-//        closeConnection();
-//        if (response.getType() == ResponseType.ERROR){
-//            String err = response.getErrorMessage();
-//            throw new Exception(err);
-//        }
-//    }
-    
+    @Override
+    public void AddTester(String name, String username, String password, String email) throws Exception {
+        initializeConnection();
 
+        Request req= JsonProtocolUtils.createAddTesterRequest(name, username, password, email);
+        sendRequest(req);
+        Response response=readResponse();
+
+        if (response.getType()== ResponseType.ERROR){
+            String err=response.getErrorMessage();
+            closeConnection();
+            throw new Exception(err);
+        }
+    }
+
+    @Override
+    public void AddProgrammer(String name, String username, String password, String email) throws Exception {
+        initializeConnection();
+
+        Request req= JsonProtocolUtils.createAddProgrammerRequest(name, username, password, email);
+        sendRequest(req);
+        Response response=readResponse();
+
+        if (response.getType()== ResponseType.ERROR){
+            String err=response.getErrorMessage();
+            closeConnection();
+            throw new Exception(err);
+        }
+    }
     private void closeConnection() {
         finished=true;
         try {

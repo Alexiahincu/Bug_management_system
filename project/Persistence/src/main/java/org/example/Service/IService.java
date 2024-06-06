@@ -11,7 +11,9 @@ public interface IService {
     Tester tLogin(String username, String password, IObserver iobs) throws Exception;
     Programmer pLogin(String username, String password, IObserver iobs) throws Exception;
     List<Bug> getAllBugs() throws Exception;
-    public void AddBug(String name, String description) throws Exception;
-    public void SolveBug(Integer id) throws Exception;
-    //void logout(Angajat Angajat, IObserver client) throws Exception;
+    void AddBug(String name, String description) throws Exception;
+    void SolveBug(Integer id) throws Exception;
+    void AddTester(String name, String username, String password, String email) throws Exception;
+
+    void AddProgrammer(String name, String username, String password, String email) throws Exception;
 }

@@ -39,8 +39,6 @@ public class ProgrammerController implements IObserver {
         for (Bug elem : bugs) {
             obsList.add(elem.toString());
         }
-
-        //listBug.refresh();
     }
 
     public void setServices(IService service) {
@@ -74,6 +72,8 @@ public class ProgrammerController implements IObserver {
     public void btnLogOutPressed(ActionEvent actionEvent) throws IOException {
         Stage secondaryStage = new Stage();
 
+        // hello view
+
         FXMLLoader loader = new FXMLLoader(
                 Main.class.getClassLoader().getResource("hello-view.fxml"));
         Parent root=loader.load();
@@ -83,37 +83,77 @@ public class ProgrammerController implements IObserver {
                 loader.getController();
         ctrl.setService(service);
 
+        // tester
 
         FXMLLoader tloader = new FXMLLoader(
                 getClass().getClassLoader().getResource("tester.fxml"));
         Parent troot=tloader.load();
 
+
         TesterController tcontroller =
                 tloader.<TesterController>getController();
         tcontroller.setServices(service);
-        //controller.loadData();
 
         ctrl.setTesterController(tcontroller);
         ctrl.setTParent(troot);
 
+        // programmer
 
         FXMLLoader ploader = new FXMLLoader(
                 getClass().getClassLoader().getResource("programmer.fxml"));
         Parent proot=ploader.load();
 
+
         ProgrammerController pcontroller =
                 ploader.<ProgrammerController>getController();
         pcontroller.setServices(service);
-        //controller.loadData();
+
 
         ctrl.setProgrammerController(pcontroller);
         ctrl.setPParent(proot);
 
-        secondaryStage.setTitle("Heeeeheeeellooooo again");
-        secondaryStage.setScene(new Scene(root, 300, 130));
-        secondaryStage.show();
+        // new tester
 
+        FXMLLoader ntloader = new FXMLLoader(
+                getClass().getClassLoader().getResource("newTester.fxml"));
+        Parent ntroot=ntloader.load();
+
+
+        TNewAcc tncontroller =
+                ntloader.<TNewAcc>getController();
+        tncontroller.setServices(service);
+
+
+        ctrl.setTNewAcc(tncontroller);
+        ctrl.setNtParent(ntroot);
+
+        // new programmer
+
+        FXMLLoader nploader = new FXMLLoader(
+                getClass().getClassLoader().getResource("newProgrammer.fxml"));
+        Parent nproot=nploader.load();
+
+
+        PNewAcc pncontroller =
+                nploader.<PNewAcc>getController();
+        pncontroller.setServices(service);
+
+
+        ctrl.setPNewAcc(pncontroller);
+        ctrl.setNpParent(nproot);
+
+
+        // show primary stage
+
+        secondaryStage.setTitle("Bug management system");
+        secondaryStage.setScene(new Scene(root, 450, 150));
+        secondaryStage.show();
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+    }
+
+    public void getInvLink(ActionEvent actionEvent){
+        Alert link = new Alert(Alert.AlertType.INFORMATION, "Invitation link: 56789");
+        link.show();
     }
 
     @Override

@@ -6,7 +6,6 @@ import org.example.Domain.Programmer;
 import org.example.Domain.Tester;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +15,6 @@ public class Response implements Serializable {
     private Tester tester;
     private Programmer programmer;
     private List<Bug> bugs;
-    //ArrayList<Ticket> tickets;
 
     public Response() {
     }
@@ -52,10 +50,6 @@ public class Response implements Serializable {
     public void setProgrammer(Programmer programmer) {
         this.programmer = programmer;
     }
-
-    //    public void setTickets(ArrayList<Ticket> tickets) {
-//        this.tickets = tickets;
-//    }
 
     public List<Bug> getBugs() {
         return bugs;

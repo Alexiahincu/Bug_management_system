@@ -67,6 +67,22 @@ public class Service implements IService {
     }
 
     @Override
+    public void AddTester(String name, String username, String password, String email) {
+        int id = testerRepository.getAll().size() + 1;
+
+        Tester tester = new Tester(id, name, username, password, email);
+        testerRepository.add(tester);
+    }
+
+    @Override
+    public void AddProgrammer(String name, String username, String password, String email) {
+        int id = programmerRepository.getAll().size() + 1;
+
+        Programmer programmer = new Programmer(id, name, username, password, email);
+        programmerRepository.add(programmer);
+    }
+
+    @Override
     public void AddBug(String name, String desc) {
 
         int id = bugRepository.getAll().size() + 1;
@@ -81,8 +97,4 @@ public class Service implements IService {
         });
 
     }
-
-//    @Override
-//    public void logout(Angajat Angajat, IObserver client) throws Exception {}
-
 }

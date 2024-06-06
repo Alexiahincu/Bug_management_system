@@ -12,14 +12,6 @@ public class TesterHibernateRepository implements TesterRepository{
         HibernateUtils.getSessionFactory().inTransaction(session -> session.persist(tester));
     }
 
-//    public Tester findOne(Integer id) {
-//        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-//        return session.createSelectionQuery("from Tester where id=:idM ", Tester.class)
-//                .setParameter("idM", id)
-//                .getSingleResultOrNull();
-//      }
-//    }
-
     @Override
     public List<Tester> getAll() {
        try( Session session=HibernateUtils.getSessionFactory().openSession()) {

@@ -11,14 +11,6 @@ public class ProgrammerHibernateRepository implements ProgrammerRepository{
         HibernateUtils.getSessionFactory().inTransaction(session -> session.persist(programmer));
     }
 
-//    public Programmer findOne(Integer id) {
-//        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-//        return session.createSelectionQuery("from Programmer where id=:idM ", Programmer.class)
-//                .setParameter("idM", id)
-//                .getSingleResultOrNull();
-//      }
-//    }
-
     @Override
     public List<Programmer> getAll() {
        try( Session session=HibernateUtils.getSessionFactory().openSession()) {

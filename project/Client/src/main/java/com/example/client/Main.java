@@ -1,8 +1,6 @@
 package com.example.client;
 
-import com.example.client.gui.LoginController;
-import com.example.client.gui.ProgrammerController;
-import com.example.client.gui.TesterController;
+import com.example.client.gui.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -71,7 +69,6 @@ public class Main extends Application {
         TesterController tcontroller =
                 tloader.<TesterController>getController();
         tcontroller.setServices(server);
-        //controller.loadData();
 
         ctrl.setTesterController(tcontroller);
         ctrl.setTParent(troot);
@@ -86,16 +83,45 @@ public class Main extends Application {
         ProgrammerController pcontroller =
                 ploader.<ProgrammerController>getController();
         pcontroller.setServices(server);
-        //controller.loadData();
 
 
         ctrl.setProgrammerController(pcontroller);
         ctrl.setPParent(proot);
 
+            // new tester
+
+        FXMLLoader ntloader = new FXMLLoader(
+                getClass().getClassLoader().getResource("newTester.fxml"));
+        Parent ntroot=ntloader.load();
+
+
+        TNewAcc tncontroller =
+                ntloader.<TNewAcc>getController();
+        tncontroller.setServices(server);
+
+
+        ctrl.setTNewAcc(tncontroller);
+        ctrl.setNtParent(ntroot);
+
+        // new programmer
+
+        FXMLLoader nploader = new FXMLLoader(
+                getClass().getClassLoader().getResource("newProgrammer.fxml"));
+        Parent nproot=nploader.load();
+
+
+        PNewAcc pncontroller =
+                nploader.<PNewAcc>getController();
+        pncontroller.setServices(server);
+
+
+        ctrl.setPNewAcc(pncontroller);
+        ctrl.setNpParent(nproot);
+
             // show primary stage
 
         primaryStage.setTitle("Bug management system");
-        primaryStage.setScene(new Scene(root, 300, 130));
+        primaryStage.setScene(new Scene(root, 450, 150));
         primaryStage.show();
 
     }

@@ -2,7 +2,6 @@ package org.example.jsonprotocol;
 
 import com.google.gson.Gson;
 import org.example.Domain.Bug;
-import org.example.Domain.Tester;
 import org.example.Service.IObserver;
 import org.example.Service.IService;
 
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatClientJsonWorker implements Runnable, IObserver {
@@ -76,8 +74,6 @@ public class ChatClientJsonWorker implements Runnable, IObserver {
             try {
                 response.setType(ResponseType.OK);
                 response.setTester(server.tLogin(username, password, this));
-//                if(!angajat1.getUsername().equals(angajat.getUsername()) || !angajat1.getPassword().equals(angajat.getPassword()))
-//                    throw new Exception();
                 return response;
             } catch (Exception e) {
                 connected=false;
@@ -93,33 +89,17 @@ public class ChatClientJsonWorker implements Runnable, IObserver {
             try {
                 response.setType(ResponseType.OK);
                 response.setProgrammer(server.pLogin(username, password, this));
-//                if(!angajat1.getUsername().equals(angajat.getUsername()) || !angajat1.getPassword().equals(angajat.getPassword()))
-//                    throw new Exception();
                 return response;
             } catch (Exception e) {
                 connected=false;
                 return JsonProtocolUtils.createErrorResponse(e.getMessage());
             }
         }
-//        if (request.getType() == RequestType.LOGOUT){
-//            System.out.println("Logout request");
-//
-//            AngajatDTO udto=request.getAngajat();
-//            Angajat Angajat=DTOUtils.getFromDTO(udto);
-//            try {
-//                server.logout(Angajat, this);
-//                return okResponse;
-//
-//            } catch (Exception e) {
-//                connected=false;
-//                return JsonProtocolUtils.createErrorResponse(e.getMessage());
-//            }
-//        }
+
         if (request.getType() == RequestType.GET_BUGS){
             System.out.println("Get bugs request");
 
             try {
-                //return okResponse;
                 List<Bug> bugs = server.getAllBugs();
                 return JsonProtocolUtils.createGetAllBugsResponse(bugs);
             } catch (Exception e) {
@@ -133,7 +113,6 @@ public class ChatClientJsonWorker implements Runnable, IObserver {
 
             try {
                 server.AddBug(request.getName(), request.getDesc());
-                //connected=false;
                 return okResponse;
             } catch (Exception e) {
                 connected=false;
@@ -146,7 +125,30 @@ public class ChatClientJsonWorker implements Runnable, IObserver {
 
             try {
                 server.SolveBug(request.getId());
-                //connected=false;
+                return okResponse;
+            } catch (Exception e) {
+                connected=false;
+                return JsonProtocolUtils.createErrorResponse(e.getMessage());
+            }
+        }
+
+        if (request.getType() == RequestType.ADD_TESTER){
+            System.out.println("Add tester request");
+
+            try {
+                server.AddTester(request.getName(), request.getUsername(), request.getPassword(), request.getEmail());
+                return okResponse;
+            } catch (Exception e) {
+                connected=false;
+                return JsonProtocolUtils.createErrorResponse(e.getMessage());
+            }
+        }
+
+        if (request.getType() == RequestType.ADD_PROGRAMMER){
+            System.out.println("Add programmer request");
+
+            try {
+                server.AddProgrammer(request.getName(), request.getUsername(), request.getPassword(), request.getEmail());
                 return okResponse;
             } catch (Exception e) {
                 connected=false;

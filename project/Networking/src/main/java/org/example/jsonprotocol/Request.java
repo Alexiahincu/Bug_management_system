@@ -3,7 +3,7 @@ package org.example.jsonprotocol;
 
 public class Request {
     private RequestType type;
-    private String username, password, name, desc;
+    private String username, password, name, desc, email;
     private Integer id;
 
     public Request(){}
@@ -29,6 +29,14 @@ public class Request {
 
     public String getDesc() {
         return desc;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setName(String name) {

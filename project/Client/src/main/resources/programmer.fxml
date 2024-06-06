@@ -22,6 +22,9 @@
 
     <Button fx:id="btnLogOut" onAction="#btnLogOutPressed" text="Log out" />
 
+    <Button fx:id="btnLink" onAction="#getInvLink" text="Get invitation link!" />
+
+
 
 </VBox>
 

@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,21 +21,22 @@ import org.example.Service.Service;
 
 
 public class LoginController implements IObserver {
-
-//    private ChatServicesJsonProxy service;
+    @FXML
+    Button loginButton, cancelBtn, createTester;
     private IService service;
 
     @FXML
     TextField userTxt, passwordTxt;
-    Parent tParent, pParent;
+    Parent tParent, pParent, ntParent, npParent;
     @FXML
     ComboBox<String> userOptions;
     private TesterController testerController;
     private ProgrammerController programmerController;
+    private TNewAcc tNewAcc;
+    private PNewAcc pNewAcc;
 
     @FXML
     public void initialize() {
-        // Add options to the ComboBox
         userOptions.setItems(FXCollections.observableArrayList("Tester", "Programmer"));
     }
 
@@ -45,10 +47,13 @@ public class LoginController implements IObserver {
         this.programmerController = programmerController;
     }
 
-//    public void setServer(ChatServicesJsonProxy s){
-//        service = s;
-//    }
+    public void setTNewAcc(TNewAcc tNewAcc) {
+        this.tNewAcc = tNewAcc;
+    }
 
+    public void setPNewAcc(PNewAcc pNewAcc) {
+        this.pNewAcc = pNewAcc;
+    }
 
     public void setService(IService service) {
         this.service = service;
@@ -58,8 +63,32 @@ public class LoginController implements IObserver {
         tParent=p;
     }
 
+    public void setNtParent(Parent ntParent) {
+        this.ntParent = ntParent;
+    }
+
+    public void setNpParent(Parent npParent) {
+        this.npParent = npParent;
+    }
+
     public void setPParent(Parent pParent) {
         this.pParent = pParent;
+    }
+
+    public void pressTNewAcc(ActionEvent actionEvent){
+        Stage stage=new Stage();
+        stage.setTitle("Create a new tester account");
+        stage.setScene(new Scene(ntParent, 800, 700));
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
+
+        stage.show();
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 
     public void pressLogin(ActionEvent actionEvent) {
@@ -81,12 +110,10 @@ public class LoginController implements IObserver {
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent event) {
-                        //ProgrammerController.btnLogOutPressed();
                         System.exit(0);
                     }
                 });
 
-                //ProgrammerController.loadData();
                 stage.show();
                 testerController.setTester(tester);
                 ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
@@ -110,19 +137,15 @@ public class LoginController implements IObserver {
                     }
                 });
 
-                //ProgrammerController.loadData();
                 stage.show();
                 programmerController.setProgrammer(programmer);
                 ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
             }
 
-           // Util.writeLog("User succesfully Programmer in "+crtUser.getId());
-
         }   catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("MPP ProgrammerIn");
                 alert.setHeaderText("Authentication failure");
-//                alert.setContentText("Wrong username or password");
             System.out.println(e.getMessage());
             alert.setContentText(e.getMessage());
                 alert.showAndWait();
@@ -138,4 +161,19 @@ public class LoginController implements IObserver {
     @Override
     public void update() {}
 
+    public void pressPNewAcc(ActionEvent actionEvent) {
+        Stage stage=new Stage();
+        stage.setTitle("Create a new programmer account");
+        stage.setScene(new Scene(npParent, 800, 700));
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
+
+        stage.show();
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+    }
 }

@@ -26,7 +26,8 @@
                 <ComboBox fx:id="userOptions" GridPane.columnIndex="1" GridPane.rowIndex="4"  />
                 <TextField fx:id="userTxt" promptText="username" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <PasswordField fx:id="passwordTxt" promptText="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
+                <Button fx:id="createTester" onAction="#pressTNewAcc" GridPane.columnIndex="0" GridPane.rowIndex="8" text="New tester account" />
+                <Button fx:id="createProgrammer" onAction="#pressPNewAcc" GridPane.columnIndex="1" GridPane.rowIndex="8" text="New programmer account" />
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />
@@ -40,7 +41,7 @@
             <StackPane prefHeight="-1.0" prefWidth="-1.0">
               <children>
                 <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#pressLogin" text="Login" StackPane.alignment="CENTER_RIGHT" />
-                <Button fx:id="cancelBtn" cancelButton="true" mnemonicParsing="false" onAction="#pressCancel" text="Cancel" />
+                <Button fx:id="cancelBtn" cancelButton="true" mnemonicParsing="false" onAction="#pressCancel" text="Cancel"  StackPane.alignment="CENTER_LEFT"/>
               </children>
             </StackPane>
           </children>
